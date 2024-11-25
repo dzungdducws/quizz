@@ -38,6 +38,13 @@ class AnswerView(BaseModel):
     class Config:
         from_attributes = True
 
+class QuestionViewOnly(BaseModel):
+    question_id: int
+    set_id: int
+    question_text: str
+    class Config:
+        from_attributes = True        
+
 class QuestionView(BaseModel):
     question_id: int
     question_text: str

@@ -1,7 +1,7 @@
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from ..schemas import QuestionSetView, QuestionView, QuestionAndAnwerSetView, AnswerView, QuestionSetCreate
+from ..schemas import QuestionSetView, QuestionView, QuestionAndAnwerSetView, AnswerView, QuestionSetCreate, QuestionViewOnly
 from ..models import QuestionSet, Question, Answer
 from ..database import get_db
 
@@ -53,7 +53,7 @@ def create_question_sets(questionSetCreate: QuestionSetCreate, db: Session = Dep
     return {"id": db_update.set_id, "title": db_update.title, "type": db_update.type}
 
 
-@router.get("/", response_model=list[QuestionView])
+@router.get("/", response_model=list[QuestionViewOnly])
 def view_questions(db: Session = Depends(get_db)):
     questions = db.query(Question).all()
     return questions
