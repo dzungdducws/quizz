@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import user, question, answer, user_quest
+from .routers import user, question, answer, user_quest, ai_translate
 
 # Create FastAPI app
 app = FastAPI()
@@ -19,4 +19,5 @@ app.include_router(user.router, prefix="/users", tags=["users"])
 app.include_router(question.router, prefix="/questions", tags=["questions"])
 app.include_router(answer.router, prefix="/answers", tags=["answers"])
 app.include_router(user_quest.router, prefix="/user_quests", tags=["user_quests"])
+app.include_router(ai_translate.router, prefix="/ai_translate", tags=["ai_translate"])
 

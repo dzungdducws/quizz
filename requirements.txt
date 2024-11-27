@@ -4,3 +4,14 @@ sqlalchemy
 pymysql
 pydantic 
 passlib[bcrypt]
+pydantic[email
+transformers[torch]
+sentencepiece
+datasets
+notebook
+ipykernel
+openpyxl
+python-dotenv
+protobuf
+evaluate
+sacrebleu
