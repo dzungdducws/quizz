@@ -81,5 +81,18 @@ class UserQuestView(BaseModel):
 
 
 
+class InputTranslate(BaseModel):
+    text: str
+    source_lang: str
+    target_lang: str
+
+    class Config:
+        from_attributes = True
+
+class OutputTranslate(BaseModel):
+    text: str
+
+    class Config:
+        from_attributes = True
         
     

@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from .models import Question, Answer
 from .utils import dataraw
 import random 
+from .routers import user, question, answer, user_quest, ai_translate
 
 # Create FastAPI app
 app = FastAPI()
@@ -78,4 +79,5 @@ app.include_router(user.router, prefix="/users", tags=["users"])
 app.include_router(question.router, prefix="/questions", tags=["questions"])
 app.include_router(answer.router, prefix="/answers", tags=["answers"])
 app.include_router(user_quest.router, prefix="/user_quests", tags=["user_quests"])
+app.include_router(ai_translate.router, prefix="/ai_translate", tags=["ai_translate"])
 
