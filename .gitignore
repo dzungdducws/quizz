@@ -1,4 +1,4 @@
-/.vscode/
+.vscode/
 # Byte-compiled / optimized / DLL files
 app/__pycache__/
 *.py[cod]
