@@ -38,6 +38,14 @@ class AnswerView(BaseModel):
     class Config:
         from_attributes = True
 
+class AnswerToCheck(BaseModel):
+    user_id: int
+    question_id: int
+    answer_text: str
+
+    class Config:
+        from_attributes = True
+
 class QuestionViewOnly(BaseModel):
     question_id: int
     set_id: int
@@ -70,6 +78,8 @@ class UserQuestView(BaseModel):
 
     class Config:
         from_attributes = True
+
+
 
         
     
