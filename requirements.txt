@@ -4,7 +4,7 @@ sqlalchemy
 pymysql
 pydantic 
 passlib[bcrypt]
-pydantic[email
+pydantic[email]
 transformers[torch]
 sentencepiece
 datasets
