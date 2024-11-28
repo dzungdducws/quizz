@@ -7,9 +7,9 @@ from app.modules.model import load_model
 
 
 router = APIRouter()
-# model_checkpoint = 'vietnqw/mbart-large-50-many-to-many-mmt-finetuned-mt'
-# model = load_model(model_checkpoint)
-# tokenizer = load_tokenizer('AI_models/tokenizer_hmong_vietnamese_mt_mbart')
+model_checkpoint = 'vietnqw/mbart-large-50-M2M-mt-Mong-Viet'
+model = load_model(model_checkpoint)
+tokenizer = load_tokenizer(model_checkpoint)
 
 
 @router.post("/translate", response_model=OutputTranslate)

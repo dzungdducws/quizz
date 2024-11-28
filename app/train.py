@@ -151,10 +151,9 @@ def fine_tune_model(tokenizer, model, data_path=get_env('DATA_DIR'), max_length=
     metric = load("sacrebleu")
 
     print('No. of training samples:', len(dataloader.dataset["train"]))
-    model_name = model.name_or_path.split("/")[-1]
-    model_path = os.path.join(get_env('AI_MODEL_DIR'), f"{model_name}-finetuned-mt")
+    model_path = os.path.join(get_env('AI_MODEL_DIR'), "mbart-large-50-M2M-mt-Mong-Viet")
     if push_to_hub:
-        model_path = f"{get_env('AI_MODEL_HUB_USER')}/{model_name}-finetuned-mt"
+        model_path = f"{get_env('AI_MODEL_HUB_USER')}/mbart-large-50-M2M--mt-Mong-Viet"
         print(f"Model will be pushed to hub: {model_path}")
     args = Seq2SeqTrainingArguments(
         model_path,
