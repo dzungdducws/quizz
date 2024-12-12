@@ -24,23 +24,23 @@ class QuestionSetCreate(BaseModel):
     title: str
     type: str = Field(default="Multiple Choice")
 
+class AnswerView(BaseModel):
+    answer_text: str
+    is_correct: int
+
+    class Config:
+        from_attributes = True
+
 class QuestionCreate(BaseModel):
-    set_id: str
     question_text: str
     question_img: str
-    question_set: int 
+    set_id: int 
+    ans: List[AnswerView]
 
 class QuestionSetView(BaseModel):
     set_id: int
     title: str
     type: str
-
-    class Config:
-        from_attributes = True
-
-class AnswerView(BaseModel):
-    answer_text: str
-    is_correct: int
 
     class Config:
         from_attributes = True

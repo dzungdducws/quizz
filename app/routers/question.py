@@ -1,7 +1,7 @@
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from ..schemas import QuestionSetView, QuestionView, QuestionAndAnwerSetView, AnswerView, QuestionSetCreate, QuestionViewOnly
+from ..schemas import QuestionSetView, QuestionCreate, QuestionView, QuestionAndAnwerSetView, AnswerView, QuestionSetCreate, QuestionViewOnly
 from ..models import QuestionSet, Question, Answer
 from ..database import get_db
 
@@ -49,6 +49,7 @@ def create_question_sets(questionSetCreate: QuestionSetCreate, db: Session = Dep
     db.add(db_update)
     db.commit()
     db.refresh(db_update)
+
     
     return {"id": db_update.set_id, "title": db_update.title, "type": db_update.type}
 
@@ -56,11 +57,16 @@ def create_question_sets(questionSetCreate: QuestionSetCreate, db: Session = Dep
 
 @router.post("/create_question")
 def create_question(questionCreate: QuestionCreate, db: Session = Depends(get_db)):
-    db_update = Question(question_text=questionCreate.question_text, question_img=questionCreate.question_img, question_set=questionCreate.question_set)
+    db_update = Question(question_text=questionCreate.question_text, question_img=questionCreate.question_img, set_id=questionCreate.set_id)
     db.add(db_update)
     db.commit()
     db.refresh(db_update)
     
+    for i in range(len(questionCreate.ans)):
+        db_update_ans =Answer(question_id=db_update.question_id, answer_text=questionCreate.ans[i].answer_text,is_correct=questionCreate.ans[i].is_correct)
+        db.add(db_update_ans)
+        db.commit()
+        db.refresh(db_update_ans)
     return {"id": db_update.question_id}
 
 
