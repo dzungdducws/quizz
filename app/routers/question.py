@@ -53,6 +53,18 @@ def create_question_sets(questionSetCreate: QuestionSetCreate, db: Session = Dep
     return {"id": db_update.set_id, "title": db_update.title, "type": db_update.type}
 
 
+
+@router.post("/create_question")
+def create_question(questionCreate: QuestionCreate, db: Session = Depends(get_db)):
+    db_update = Question(question_text=questionCreate.question_text, question_img=questionCreate.question_img, question_set=questionCreate.question_set)
+    db.add(db_update)
+    db.commit()
+    db.refresh(db_update)
+    
+    return {"id": db_update.question_id}
+
+
+
 @router.get("/", response_model=list[QuestionViewOnly])
 def view_questions(db: Session = Depends(get_db)):
     questions = db.query(Question).all()

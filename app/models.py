@@ -32,6 +32,7 @@ class Question(Base):
     question_text = Column(Text, nullable=False)
 
     question_set = relationship("QuestionSet", back_populates="questions")
+    question_img = Column(Text, nullable=True)
 
     answers = relationship("Answer", back_populates="question")
     user_quests = relationship("UserQuest", back_populates="question")

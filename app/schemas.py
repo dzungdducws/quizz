@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
+import streamlit
 from typing import List
 
 class UserCreate(BaseModel):
@@ -22,6 +23,12 @@ class UserView(BaseModel):
 class QuestionSetCreate(BaseModel):
     title: str
     type: str = Field(default="Multiple Choice")
+
+class QuestionCreate(BaseModel):
+    set_id: str
+    question_text: str
+    question_img: str
+    question_set: int 
 
 class QuestionSetView(BaseModel):
     set_id: int
