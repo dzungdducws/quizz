@@ -29,6 +29,8 @@ def fetchdata(db: Session = Depends(get_db)):
     for line in text_lines:
         words = line.split()  # Tách dòng thành từng từ
         for i in range(len(words)):
+            if random.randint(0, 5) > 2:
+                break
             missing_word = words[i]
             remaining_sentence = " ".join(words[:i] + ["___"] + words[i+1:])
             db_question = Question(set_id=2, question_text=remaining_sentence)
@@ -49,6 +51,8 @@ def fetchdata22(db: Session = Depends(get_db)):
     for line in text_lines:
         words = line.split()  
         for i in range(len(words)):
+            if random.randint(0, 5) > 2:
+                break
             missing_word = words[i]
             remaining_sentence = " ".join(words[:i] + ["___"] + words[i+1:])
             

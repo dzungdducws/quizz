@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `question_id` int(11) NOT NULL AUTO_INCREMENT,
   `set_id` int(11) NOT NULL,
   `question_text` text NOT NULL,
-  `question_img` text NOT NULL,
+  `question_img` text,
   PRIMARY KEY (`question_id`),
   KEY `set_id` (`set_id`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`set_id`) REFERENCES `questionset` (`set_id`)
@@ -52,7 +52,8 @@ CREATE TABLE IF NOT EXISTS `questionset` (
 -- Dumping data for table testdb.questionset: ~7 rows (approximately)
 INSERT IGNORE INTO `questionset` (`set_id`, `title`, `type`) VALUES
 	(1, 'Chọn từ đúng', 'Multiple Choice'),
-	(2, 'Điền từ', 'Type');
+	(2, 'Điền từ', 'Type'),
+	(3, 'Chọn từ trong ảnh', 'Multiple Choice');
 
 -- Dumping structure for table testdb.user
 CREATE TABLE IF NOT EXISTS `user` (
