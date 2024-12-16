@@ -8,6 +8,8 @@ from .utils import dataraw
 import random 
 from .routers import user, question, answer, user_quest, ai_translate
 import os
+import base64
+import string
 
 # Create FastAPI app
 app = FastAPI()
@@ -21,6 +23,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
 )
+
 
 
 
@@ -95,9 +98,18 @@ def fetchdataanh(db: Session = Depends(get_db)):
     
     
     for filename, base64_string in base64_results.items():
-        res.push(f"{filename}: {base64_string[:50]}...")
-                                
-    return res
+        db_question = Question(set_id=3,question_text="Chọn từ trong hình mô tả:",question_img=base64_string)
+        db.add(db_question)
+        db.commit()
+        db.refresh(db_question)
+        db_ans = Answer(question_id=db_question.question_id, answer_text=filename.rsplit('.', 1)[0], is_correct=1)
+        db.add(db_ans)
+        for i in range(3):
+            x = ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randint(5, 10)))
+            db_wrong_ans = Answer(question_id=db_question.question_id, answer_text=x, is_correct=0)
+            db.add(db_wrong_ans) 
+
+    return "ok"
 
 
 app.include_router(user.router, prefix="/users", tags=["users"])
