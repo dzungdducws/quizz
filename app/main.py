@@ -79,6 +79,26 @@ def fetchdata22(db: Session = Depends(get_db)):
     return {"s": "chon"}
 
 
+@app.post("/fetchdataanh/")
+def fetchdataanh(db: Session = Depends(get_db)):
+
+    base64_results = {}
+    res = []
+    for filename in os.listdir("./img"):
+        file_path = os.path.join("./img", filename)
+        
+        if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
+            with open(file_path, "rb") as image_file:
+                base64_string = base64.b64encode(image_file.read()).decode('utf-8')
+                base64_results[filename] = base64_string
+    
+    
+    for filename, base64_string in base64_results.items():
+        res.push(f"{filename}: {base64_string[:50]}...")
+                                
+    return res
+
+
 app.include_router(user.router, prefix="/users", tags=["users"])
 app.include_router(question.router, prefix="/questions", tags=["questions"])
 app.include_router(answer.router, prefix="/answers", tags=["answers"])
