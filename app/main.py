@@ -7,6 +7,7 @@ from .models import Question, Answer
 from .utils import dataraw
 import random 
 from .routers import user, question, answer, user_quest, ai_translate
+import os
 
 # Create FastAPI app
 app = FastAPI()
