@@ -24,12 +24,9 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-
-
-
 # Include routers
-@app.post("/fetchdataDienTu/")
-def fetchdata(db: Session = Depends(get_db)):
+@app.post("/mockdata/")
+def mockdata(db: Session = Depends(get_db)):
     for line in text_lines:
         words = line.split()  # Tách dòng thành từng từ
         for i in range(len(words)):
@@ -48,10 +45,6 @@ def fetchdata(db: Session = Depends(get_db)):
             db.commit()
             db.refresh(db_ans)
 
-    return {"s": "dientu"}
-
-@app.post("/fetchdataChon/")
-def fetchdata22(db: Session = Depends(get_db)):
     for line in text_lines:
         words = line.split()  
         for i in range(len(words)):
@@ -78,13 +71,7 @@ def fetchdata22(db: Session = Depends(get_db)):
                     selected_indices.add(x)
                     count += 1
                     db_wrong_ans = Answer(question_id=db_question.question_id, answer_text=words[x], is_correct=0)
-                    db.add(db_wrong_ans)                                            
-
-    return {"s": "chon"}
-
-
-@app.post("/fetchdataanh/")
-def fetchdataanh(db: Session = Depends(get_db)):
+                    db.add(db_wrong_ans)     
 
     base64_results = {}
     res = []
@@ -108,7 +95,7 @@ def fetchdataanh(db: Session = Depends(get_db)):
             x = ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randint(5, 10)))
             db_wrong_ans = Answer(question_id=db_question.question_id, answer_text=x, is_correct=0)
             db.add(db_wrong_ans) 
-
+    
     return "ok"
 
 
