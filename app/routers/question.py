@@ -1,7 +1,7 @@
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from ..schemas import QuestionSetView, QuestionCreate, QuestionView, QuestionAndAnwerSetView, AnswerView, QuestionSetCreate, QuestionViewOnly
+from ..schemas import QuestionSetView, QuestionCreate, QuestionView1, QuestionView2, QuestionAndAnwerSetView1, QuestionAndAnwerSetView2, AnswerView, QuestionSetCreate, QuestionViewOnly
 from ..models import QuestionSet, Question, Answer
 from ..database import get_db
 
@@ -13,7 +13,7 @@ def view_question_sets(db: Session = Depends(get_db)):
     return question_sets
 
 
-@router.get("/set/{set_id}", response_model=QuestionAndAnwerSetView)
+@router.get("/set/{set_id}")
 def view_question_and_anwser_by_set(set_id: int, db: Session = Depends(get_db)):
     question_set = db.query(QuestionSet).filter(QuestionSet.set_id == set_id).first()
     
@@ -23,21 +23,38 @@ def view_question_and_anwser_by_set(set_id: int, db: Session = Depends(get_db)):
 
     listAnswerByQuestion = db.query(Question).filter(Question.set_id == set_id).all()
     
-    # Prepare the response model
-    response = QuestionAndAnwerSetView(
-        set_id=question_set.set_id,
-        title=question_set.title,
-        type=question_set.type,
-        list=[QuestionView(
-            question_id=question.question_id,
-            set_id=question.set_id,
-            question_text=question.question_text,
-            list=[AnswerView(
-                answer_text=answer.answer_text,
-                is_correct=answer.is_correct
-            ) for answer in question.answers]
-        ) for question in question_set.questions]
-    )
+    if (set_id != 3):
+        response = QuestionAndAnwerSetView1(
+            set_id=question_set.set_id,
+            title=question_set.title,
+            type=question_set.type,
+            list=[QuestionView1(
+                question_id=question.question_id,
+                set_id=question.set_id,
+                question_text=question.question_text,
+                question_img=question.question_img,
+                list=[AnswerView(
+                    answer_text=answer.answer_text,
+                    is_correct=answer.is_correct
+                ) for answer in question.answers]
+            ) for question in question_set.questions]
+        )
+    else:
+        response = QuestionAndAnwerSetView2(
+            set_id=question_set.set_id,
+            title=question_set.title,
+            type=question_set.type,
+            list=[QuestionView2(
+                question_id=question.question_id,
+                set_id=question.set_id,
+                question_text=question.question_text,
+                question_img=question.question_img,
+                list=[AnswerView(
+                    answer_text=answer.answer_text,
+                    is_correct=answer.is_correct
+                ) for answer in question.answers]
+            ) for question in question_set.questions]
+        )
 
     return response
 

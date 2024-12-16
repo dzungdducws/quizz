@@ -60,21 +60,38 @@ class QuestionViewOnly(BaseModel):
     class Config:
         from_attributes = True        
 
-class QuestionView(BaseModel):
+class QuestionView1(BaseModel):
     question_id: int
     question_text: str
     list: List[AnswerView]
     class Config:
         from_attributes = True
 
-class QuestionAndAnwerSetView(BaseModel):
-    set_id: int
-    title: str
-    type: str
-    list: List[QuestionView]
+
+class QuestionView2(BaseModel):
+    question_id: int
+    question_text: str
+    question_img: str   
+    list: List[AnswerView]
     class Config:
         from_attributes = True
 
+class QuestionAndAnwerSetView1(BaseModel):
+    set_id: int
+    title: str
+    type: str
+    list: List[QuestionView1]
+    class Config:
+        from_attributes = True
+
+
+class QuestionAndAnwerSetView2(BaseModel):
+    set_id: int
+    title: str
+    type: str
+    list: List[QuestionView2]
+    class Config:
+        from_attributes = True
 
 class UserQuestView(BaseModel):
     user_quest_id: int
