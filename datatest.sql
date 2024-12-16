@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `question_id` int(11) NOT NULL AUTO_INCREMENT,
   `set_id` int(11) NOT NULL,
   `question_text` text NOT NULL,
-  `question_img` text,
+  `question_img` longtext,
   PRIMARY KEY (`question_id`),
   KEY `set_id` (`set_id`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`set_id`) REFERENCES `questionset` (`set_id`)
