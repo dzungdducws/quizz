@@ -68,7 +68,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Dumping data for table testdb.user: ~6 rows (approximately)
 INSERT IGNORE INTO `user` (`user_id`, `username`, `email`, `password_hash`, `created_at`) VALUES
-	(1, 'dzungdducws', 'dzungdducws@gmail.com', '$2b$12$O2y.N2I9mhu17eYCDHNv9ey32sxUyYO0CLBtt5zfTxcWs1gHqQbSG', '2024-11-23 10:22:21');
+	(1, 'dzungdducws', 'dzungdducws@gmail.com', '$2b$12$2kDeWzn35imkUROud1/faOoE20hs9ldXy3g9wxNfADkOEorRIL7Hm', '2024-11-23 10:22:21'),
+	(2, 'test', 'test@gmail.com', '$2b$12$2kDeWzn35imkUROud1/faOoE20hs9ldXy3g9wxNfADkOEorRIL7Hm', '2024-11-23 10:22:21');
 
 -- Dumping structure for table testdb.user_quest
 CREATE TABLE IF NOT EXISTS `user_quest` (
