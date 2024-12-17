@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from ..schemas import QuestionSetView, QuestionCreate, QuestionView1, QuestionView2, QuestionAndAnwerSetView1, QuestionAndAnwerSetView2, AnswerView, QuestionSetCreate, QuestionViewOnly
 from ..models import QuestionSet, Question, Answer
 from ..database import get_db
-
+import random
 router = APIRouter()
 
 @router.get("/sets", response_model=list[QuestionSetView])
@@ -28,33 +28,46 @@ def view_question_and_anwser_by_set(set_id: int, db: Session = Depends(get_db)):
             set_id=question_set.set_id,
             title=question_set.title,
             type=question_set.type,
-            list=[QuestionView1(
-                question_id=question.question_id,
-                set_id=question.set_id,
-                question_text=question.question_text,
-                question_img=question.question_img,
-                list=[AnswerView(
-                    answer_text=answer.answer_text,
-                    is_correct=answer.is_correct
-                ) for answer in question.answers]
-            ) for question in question_set.questions]
+            list=[
+                QuestionView1(
+                    question_id=question.question_id,
+                    set_id=question.set_id,
+                    question_text=question.question_text,
+                    question_img=question.question_img,
+                    list=random.sample(  # Xáo trộn danh sách câu trả lời
+                        [
+                            AnswerView(
+                                answer_text=answer.answer_text,
+                                is_correct=answer.is_correct
+                            ) for answer in question.answers
+                        ], len(question.answers)
+                    )
+                ) for question in random.sample(question_set.questions, len(question_set.questions))  # Xáo trộn danh sách câu hỏi
+            ]
         )
     else:
         response = QuestionAndAnwerSetView2(
             set_id=question_set.set_id,
             title=question_set.title,
             type=question_set.type,
-            list=[QuestionView2(
-                question_id=question.question_id,
-                set_id=question.set_id,
-                question_text=question.question_text,
-                question_img=question.question_img,
-                list=[AnswerView(
-                    answer_text=answer.answer_text,
-                    is_correct=answer.is_correct
-                ) for answer in question.answers]
-            ) for question in question_set.questions]
+            list=[
+                QuestionView2(
+                    question_id=question.question_id,
+                    set_id=question.set_id,
+                    question_text=question.question_text,
+                    question_img=question.question_img,
+                    list=random.sample(  # Xáo trộn danh sách câu trả lời
+                        [
+                            AnswerView(
+                                answer_text=answer.answer_text,
+                                is_correct=answer.is_correct
+                            ) for answer in question.answers
+                        ], len(question.answers)
+                    )
+                ) for question in random.sample(question_set.questions, len(question_set.questions))  # Xáo trộn danh sách câu hỏi
+            ]
         )
+
 
     return response
 
